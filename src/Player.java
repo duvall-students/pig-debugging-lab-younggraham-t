@@ -6,7 +6,11 @@ public abstract class Player {
 	private final int WIN_SCORE = 100;
 	
 	public Player(String myName){
+//		myName (local variable) isn't used even though it's a parameter	to the constructor	
+		this.myName = myName;
+		
 		myScore = 0;
+		
 	}
 	
 	// Each player must provide logic for deciding to roll again

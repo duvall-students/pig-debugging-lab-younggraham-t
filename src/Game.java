@@ -9,8 +9,14 @@ public class Game {
 	private final int LOSER_ROLL = 1;
 	
 	public Game(){
-		Player player1 = new GUIPlayer();
-		Player player2 = new ComputerPlayer();
+//		Player player1 = new GUIPlayer();
+//		Player player2 = new ComputerPlayer();
+//		The player1 and player2 are instance variables so creating a local variable of
+// 		the same name will break methods that use the instance variables.
+		player1 = new GUIPlayer();
+		player2 = new ComputerPlayer();
+		
+		
 		die = new Random();
 		spinner = new Spinner();
 	}
@@ -48,7 +54,9 @@ public class Game {
 		boolean keepGoing = true;
 		printStartRoundMessage(whoseTurn);
 		while(keepGoing){
-			int roll = die.nextInt(7);
+//			int roll = die.nextInt(7);
+//			die.nextInt can return 0
+			int roll = rollDie();
 			String spin = spinner.spin();
 			System.out.println(roll+ " "+ spin);
 			
@@ -56,7 +64,9 @@ public class Game {
 				System.out.println("Lose a turn.");
 				return 0;
 			}
-			else if(spin == LOSER_SPIN.toUpperCase()){
+			//else if(spin == LOSER_SPIN.toUpperCase()){
+			//strings need to be compared with .equals
+			else if(spin.equals(LOSER_SPIN.toUpperCase())){
 				System.out.println("Too bad!  Lose all your points.");
 				whoseTurn.resetScore();
 				return 0;
@@ -70,9 +80,22 @@ public class Game {
 		return roundScore;
 	}
 	
+	//rolls die until roll is not 0
+	private int rollDie() {
+		int roll = 0;
+		while(roll == 0) {
+			roll = die.nextInt(7);
+		}
+		return roll;
+	}
+	
+	
 	// True if one of the players has won the game.
 	public boolean winner(){
-		return player1.hasWon() && player2.hasWon();
+//		return player1.hasWon() && player2.hasWon();
+// 		this will cause the winner method to return true only if both players have won
+//		which is not what we want 
+		return player1.hasWon() || player2.hasWon();
 	}
 	
 	/* 

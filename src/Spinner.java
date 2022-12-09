@@ -21,7 +21,9 @@ public class Spinner {
 	 * based on the given probabilities.
 	 */
 	public String numToWord(double spinNumber){	
-		int index = 1;
+//		int index = 1;
+//		index will never be 0 so the first item in probabilites will not be selected
+		int index = 0;
 		double low = 0;
 		boolean done = false;
 		String result = "";
